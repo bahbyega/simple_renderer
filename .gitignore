@@ -1,0 +1,11 @@
+# Folders
+build/
+output/
+
+# Compiled stuff
+*.o
+*.out
+
+# Text editor tmp files
+.*~
+.#*
