@@ -9,3 +9,6 @@ output/
 # Text editor tmp files
 .*~
 .#*
+
+# Scripts
+*.sh
