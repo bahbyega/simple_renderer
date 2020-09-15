@@ -1,5 +1,4 @@
 #include "line.h"
-#include<iostream>
 
 struct Line {
   int x0, y0; // left vertice
@@ -27,15 +26,16 @@ void draw_line(int x0, int y0,
 }
 
 void draw_line_low(int x0, int y0,
-	       int x1, int y1,
-	       TGAColor color, TGAImage &image) {
+		   int x1, int y1,
+		   TGAColor color, TGAImage &image) {
   int dx = x1 - x0;
   int dy = y1 - y0;
 
   int error = 0;
-  int y = y0;
 
+  int y = y0;
   int y_increment = 0;
+  
   if (dy > 0)
     y_increment = 1 ;
   else {
@@ -55,15 +55,16 @@ void draw_line_low(int x0, int y0,
 }
 
 void draw_line_high(int x0, int y0,
-	       int x1, int y1,
-	       TGAColor color, TGAImage &image) {
+		    int x1, int y1,
+		    TGAColor color, TGAImage &image) {
   int dx = x1 - x0;
   int dy = y1 - y0;
 
   int error = 0;
-  int x = x0;
 
+  int x = x0;
   int x_increment = 0;
+
   if (dx > 0)
     x_increment = 1 ;
   else {
