@@ -14,9 +14,13 @@ void fill_triangle(Vec2i point0, Vec2i point1, Vec2i point2,
   if (point1.y > point2.y) std::swap(point1, point2);
 
   // draw top triangle
-  float left_sloap = (float)(point2.y - point1.y) / (point2.x - point1.x); 
-  float right_sloap = (float)(point2.y - point0.y) / (point2.x - point0.x);
+  float left_sloap = (float)(point2.x - point1.x) / (point2.y - point1.y); 
+  float right_sloap = (float)(point2.x - point0.x) / (point2.y - point0.y);
 
+  if ((point1.x > point2.x && point0.x < point2.x) || (point1.x < point2.x && point0.x < point2.x)) {
+    std::swap(left_sloap, right_sloap);
+  }
+  
   std::cout << "left_sloap: " << left_sloap << std::endl;
   std::cout << "right_sloap: " << right_sloap << std::endl;
   
@@ -26,24 +30,28 @@ void fill_triangle(Vec2i point0, Vec2i point1, Vec2i point2,
   for(int y = point2.y; y > point1.y; y--) { 
     fill_pixel_line(current_leftedge_x, current_rightedge_x, y,
 		    color, image);
-    current_leftedge_x -= 1/left_sloap;
-    current_rightedge_x -= 1/right_sloap;
+    current_leftedge_x -= left_sloap;
+    current_rightedge_x -= right_sloap;
     }
   
   // draw bottom triangle
-  left_sloap = (float)(point0.y - point1.y) / (point0.x - point1.x); 
-  right_sloap = (float)(point0.y - point2.y) / (point0.x - point2.x);
+  left_sloap = (float)(point0.x - point1.x) / (point0.y - point1.y); 
+  right_sloap = (float)(point0.x - point2.x) / (point0.y - point2.y);
 
   std::cout << "left_sloap: " << left_sloap << std::endl;
   std::cout << "right_sloap: " << right_sloap << std::endl;
   current_leftedge_x = point0.x;
   current_rightedge_x = point0.x;
 
+  if ((point1.x > point2.x && point0.x < point2.x) || (point1.x < point2.x && point0.x < point2.x)) {
+    std::swap(left_sloap, right_sloap);
+  }
+  
   for(int y = point0.y; y <= point1.y; y++) {
   fill_pixel_line(current_leftedge_x, current_rightedge_x, y,
   		    color, image);
-  current_leftedge_x += 1/left_sloap;
-  current_rightedge_x += 1/right_sloap;
+  current_leftedge_x += left_sloap;
+  current_rightedge_x += right_sloap;
   }
 }
 

@@ -24,8 +24,8 @@ int main() {
   draw_line(537, 590, 700, 1000, white, image);     // high 1
   */
 
-  fill_triangle(Vec2i(240, 340), Vec2i(350, 700), Vec2i(700, 100), green, image);
-  //fill_triangle(Vec2i(140, 100), Vec2i(450, 600), Vec2i(700, 240), blue, image);
+  fill_triangle(Vec2i(400, 340), Vec2i(350, 700), Vec2i(700, 100), green, image);
+  fill_triangle(Vec2i(140, 100), Vec2i(450, 600), Vec2i(400, 240), blue, image);
   
   image.flip_vertically(); // changes origin to left bottom corner
   image.write_tga_file("../output/output.tga");
