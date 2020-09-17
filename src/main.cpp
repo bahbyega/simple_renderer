@@ -33,7 +33,7 @@ void generate_triangles(TGAImage &image)
 	}
 
 	int color_index = rand() % sizeof(colors) / sizeof(colors[0]);
-	fill_triangle(vertices[0], vertices[1], vertices[2], colors[color_index], image);
+	draw_triangle(vertices[0], vertices[1], vertices[2], colors[color_index], image);
     }
   }
 }
@@ -44,6 +44,11 @@ int main()
   TGAImage image(1024, 1024, TGAImage::RGB);
 
   generate_triangles(image);
+
+  // tests to see if there are any missing pixel lines
+  //draw_line(0, 0, 0, 1024, white, image);
+  //draw_line(0, 0, 1024, 0, white, image);
+  //draw_triangle(Vec2i(1, 1), Vec2i(1, 1023), Vec2i(1023, 1), green, image);
   
   image.flip_vertically(); // changes origin to left bottom corner
   image.write_tga_file("../output/output.tga");

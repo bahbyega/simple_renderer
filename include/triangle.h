@@ -4,7 +4,7 @@
 #include "geometry.h"
 #include "tgaimage.h"
 
-void fill_triangle(Vec2i, Vec2i, Vec2i, TGAColor, TGAImage &);
+void draw_triangle(Vec2i, Vec2i, Vec2i, TGAColor, TGAImage &);
 void fill_pixel_line(int, int, int, TGAColor, TGAImage &);
 
 
