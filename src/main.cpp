@@ -1,3 +1,4 @@
+#include <cstdlib>
 #include "line.h"
 #include "triangle.h"
 
@@ -10,22 +11,39 @@ const TGAColor dark_blue = TGAColor(0,102,204,1);
 const TGAColor purple = TGAColor(102,0,102,1);
 const TGAColor white = TGAColor(255, 255, 255, 255);
 
-int main() {
+const TGAColor colors[] = {red, orange, yellow, green, blue, dark_blue, purple, white};
+
+/* Generates random triangles which do not cover each other. */
+void generate_triangles(TGAImage &image)
+{
+  int step = 100; // medial size (in pixels) of a tringle
+  std::srand(time(NULL));
+      
+  for(int i = 10; i < image.get_width() - step; i+=step) {
+    for(int j = 10; j < image.get_height() - step; j+=step) {
+	int rangei = step + 1;
+	int rangej = step + 1;
+
+	Vec2i vertices[3];
+
+	for(int k = 0; k < 3; k++) {
+	  int x = std::rand() % rangei + i;
+	  int y = std::rand() % rangej + j;
+	  vertices[k] = Vec2i(x, y);
+	}
+
+	int color_index = rand() % sizeof(colors) / sizeof(colors[0]);
+	fill_triangle(vertices[0], vertices[1], vertices[2], colors[color_index], image);
+    }
+  }
+}
+
+int main()
+{
+  // create image
   TGAImage image(1024, 1024, TGAImage::RGB);
 
-  /*
-  draw_line(590, 550, 1000, 700, red, image);      // low 1
-  draw_line(590, 460, 1000, 300, orange, image);    // low 4
-  draw_line(537, 410, 700, 24, yellow, image);    // high 4
-  draw_line(470, 410, 300, 24, green, image);     // high 3
-  draw_line(410, 470, 24, 300, blue, image);      // low 3
-  draw_line(410, 537, 24, 700, dark_blue, image); // low 2
-  draw_line(470, 590, 300, 1000, purple, image);    // high 2
-  draw_line(537, 590, 700, 1000, white, image);     // high 1
-  */
-
-  fill_triangle(Vec2i(400, 340), Vec2i(350, 700), Vec2i(700, 100), green, image);
-  fill_triangle(Vec2i(140, 100), Vec2i(450, 600), Vec2i(400, 240), blue, image);
+  generate_triangles(image);
   
   image.flip_vertically(); // changes origin to left bottom corner
   image.write_tga_file("../output/output.tga");
