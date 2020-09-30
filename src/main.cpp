@@ -51,7 +51,5 @@ int main()
   image.flip_vertically(); // changes origin to left bottom corner
   image.write_tga_file("../output/output.tga");
 
-  delete model;
-
   return 0;
 }
